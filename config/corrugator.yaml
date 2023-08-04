@@ -1,0 +1,85 @@
+domain: "danbooru.donmai.us"
+
+# 認証 (大量にリクエストするので必要)
+auth:
+  username: ""
+  api_key: ""
+
+subsets:
+  - query_list_file: "./data/general_tags.txt"
+    output_path: "./output/sfw"
+    limit: 50
+
+    search_filter:
+      rating:
+        include: "sfw"
+
+  - query_list_file: "./data/general_tags.txt"
+    output_path: "./output/nsfw"
+    limit: 50
+
+    search_filter:
+      rating:
+        include: "nsfw"
+
+# 検索オプション
+search_filter:
+  filetypes:
+    - png
+    - jpg
+    - webp
+  date:
+    start: "2019-01-01"
+
+  order: "rank"
+
+max_workers: 10
+
+# キャプションのオプション
+caption:
+  extension: "txt"
+
+  artist: false # アーティストタグは使わない
+  copyright: true # 版権タグ
+  character: true # キャラクタータグ
+  general: true # 一般タグ (1girl...)
+  meta: # メタタグだけ特殊
+    keeps: "./corrugator/config/allowed_meta_tags.txt" # このタグのみ残し、それ以外は削除
+
+  # 特定のタグが含まれるかどうかで nsfw タグを追加する
+  rating:
+    type: "by_tag"
+
+    nsfw_tags: "./corrugator/config/sensitive_tags.txt"
+    insert_tags: "nsfw"
+
+  quality:
+    - name: "masterpiece"
+      score: 150
+    - name: "best quality"
+      score: 100
+    - name: "high quality"
+      score: 50
+    - name: "medium quality"
+      score: 20
+    - name: "normal quality"
+      score: 10
+    - name: "low quality"
+      score: 0
+    - name: "worst quality"
+      score: -9999
+
+  common: false # 全体のタグとしての処理 (特になし)
+
+  overwrite: true # 実行したときに既にタグのファイルが存在する場合に上書きする
+
+# 検索結果のオプション
+search_result_filter:
+  exclude_any: # このタグのどれかが含まれていたら除外する
+    [
+      "deleted",
+      "ai-generated",
+      "ai-assisted",
+      "pixel-perfect duplicate",
+      "duplicate",
+    ]

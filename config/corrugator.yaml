@@ -6,16 +6,16 @@ auth:
   api_key: ""
 
 subsets:
-  - query_list_file: "./data/general_tags.txt"
-    output_path: "./output/sfw"
+  - query_list_file: "../data/general_tags.txt"
+    output_path: "../output/sfw"
     limit: 50
 
     search_filter:
       rating:
         include: "sfw"
 
-  - query_list_file: "./data/general_tags.txt"
-    output_path: "./output/nsfw"
+  - query_list_file: "../data/general_tags.txt"
+    output_path: "../output/nsfw"
     limit: 50
 
     search_filter:
@@ -44,30 +44,24 @@ caption:
   character: true # キャラクタータグ
   general: true # 一般タグ (1girl...)
   meta: # メタタグだけ特殊
-    keeps: "./corrugator/config/allowed_meta_tags.txt" # このタグのみ残し、それ以外は削除
+    keeps:
+      - tags: "./config/allowed_meta_tags.txt" # このタグのみ残し、それ以外は削除
 
   # 特定のタグが含まれるかどうかで nsfw タグを追加する
   rating:
     type: "by_tag"
 
-    nsfw_tags: "./corrugator/config/sensitive_tags.txt"
+    nsfw_tags: "./config/sensitive_tags.txt"
     insert_tags: "nsfw"
 
   quality:
-    - name: "masterpiece"
-      score: 150
-    - name: "best quality"
-      score: 100
-    - name: "high quality"
-      score: 50
-    - name: "medium quality"
-      score: 20
-    - name: "normal quality"
-      score: 10
-    - name: "low quality"
-      score: 0
-    - name: "worst quality"
-      score: -9999
+    "masterpiece": 100
+    "best quality": 50
+    "high quality": 20
+    "medium quality": 10
+    "normal quality": 5
+    "low quality": 0
+    "worst quality": -9999
 
   common: false # 全体のタグとしての処理 (特になし)
 
@@ -83,3 +77,6 @@ search_result_filter:
       "pixel-perfect duplicate",
       "duplicate",
     ]
+
+cache:
+  search_result: true

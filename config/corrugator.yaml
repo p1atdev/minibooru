@@ -1,22 +1,18 @@
-domain: "danbooru.donmai.us"
-
 # 認証 (大量にリクエストするので必要)
 auth:
   username: ""
   api_key: ""
 
 subsets:
-  - query_list_file: "../data/general_tags.txt"
-    output_path: "../output/sfw"
-    limit: 50
+  - domain: "safebooru.donmai.us"
+    query_list_file: "../data/general_tags.txt"
+    output_path: "../output"
+    limit: 200
 
-    search_filter:
-      rating:
-        include: "sfw"
-
-  - query_list_file: "../data/general_tags.txt"
-    output_path: "../output/nsfw"
-    limit: 50
+  - domain: "danbooru.donmai.us"
+    query_list_file: "../data/general_tags.txt"
+    output_path: "../output"
+    limit: 200
 
     search_filter:
       rating:
@@ -31,7 +27,7 @@ search_filter:
   date:
     start: "2019-01-01"
 
-  order: "rank"
+  order: "score"
 
 max_workers: 10
 
@@ -55,12 +51,12 @@ caption:
     insert_tags: "nsfw"
 
   quality:
-    "masterpiece": 100
-    "best quality": 50
-    "high quality": 20
-    "medium quality": 10
-    "normal quality": 5
-    "low quality": 0
+    "masterpiece": 150
+    "best quality": 100
+    "high quality": 75
+    "medium quality": 25
+    "normal quality": 0
+    "low quality": -5
     "worst quality": -9999
 
   common: false # 全体のタグとしての処理 (特になし)

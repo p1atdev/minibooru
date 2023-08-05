@@ -15,6 +15,8 @@ def main(args):
     # sort by count
     tags.sort(key=lambda tag: tag.post_count, reverse=True)
 
+    print(f"Total tags: {len(tags)}")
+
     # show top 10 and bottom 10
     print("Top 10 by post count:")
     for tag in tags[:10]:
